@@ -1,12 +1,14 @@
-# React + Vite
+# NETFLIX-GPT
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project focuses on building a Netflix-like UI with the GPT integration.
 
-Currently, two official plugins are available:
+## Configuring the Project
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+1. Go to the parent folder where you have to create netflix-gpt project in CS Code.
+2. Run `npm create vite@latest`\
+   Provide project name, framework etc. Project folder will be created at the end.
+3. Run - \
+   `cd netflix-gpt` \
+   `npm install`
+4. Optional step - initialize the git repo for the project and link it to the github repository. You can do an initial commit as well.
+5. Install **Tailwind CSS** - Follow the exact steps mentioned (For Vite) in official Tailwind CSS documentation.
