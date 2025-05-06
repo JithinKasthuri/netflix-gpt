@@ -21,13 +21,7 @@ This project focuses on building a Netflix-like UI with the GPT integration.
 2. Once the project is created, choose the Web option and start registering the application.
 3. We can choose firebase hosting as well
 4. Do `npm install firebase` in our local project.
-5. Copy the firebase SDK from website and paste it in `firebase.js file`. We can add this in `.gitignore` file. Make sure, we add below lines while recreating the firebase.js file, as this will be needed for authentication purpose. -
-
-   ```js
-   import { getAuth } from "firebase/auth";
-   export const auth = getAuth();
-   ```
-
+5. Copy the firebase SDK from website and paste it in `firebase.js file`.
 6. To host the app in firebase, we need to install firebase CLI - `npm install -g firebase-tools`
 7. Enable the type of authentication that you want in your project, by clicking Authentication in firebase page.
 8. Login to firebase in local by - `firebase login`
