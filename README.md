@@ -21,7 +21,11 @@ This project focuses on building a Netflix-like UI with the GPT integration.
 2. Once the project is created, choose the Web option and start registering the application.
 3. We can choose firebase hosting as well
 4. Do `npm install firebase` in our local project.
-5. Copy the firebase SDK from website and paste it in `firebase.js file`.
+5. Copy the firebase SDK from website and paste it in `firebase.js` file. It is better not to push this file into github. So add this in `.gitignore` file. While recreating the project, don't forget to add below code in `firebase.js` -
+   ```js
+   import { getAuth } from "firebase/auth";
+   export const auth = getAuth();
+   ```
 6. To host the app in firebase, we need to install firebase CLI - `npm install -g firebase-tools`
 7. Enable the type of authentication that you want in your project, by clicking Authentication in firebase page.
 8. Login to firebase in local by - `firebase login`
@@ -68,7 +72,8 @@ This project focuses on building a Netflix-like UI with the GPT integration.
 
 1. Sign In/Sign Up Page
 2. Form Validation with `useRef`
-3. Deploying app in Firebase
+3. Authentication with firebase & deployment in firebase
+4. TMDB APIs to get movie details
 
 ## `useRef` vs `useState`
 
@@ -119,6 +124,54 @@ function FormWithRef() {
   );
 }
 ```
+
+## `StrictMode` in React
+
+- When we create a React Vite project, our main component gets wrapped in `<StrictMode></StrictMode>`.
+- `React.StrictMode` is a development-only tool in React that helps you identify potential problems in your application early. It doesn’t render any visible UI and has no effect in production builds.
+- In development, we can see APIs calls happening twice. This is the work of `StrictMode`, which checks for potemtial errors.
+- Example -
+
+  ```react
+  import { useEffect, useState } from "react";
+
+  function TimerComponent() {
+    const [seconds, setSeconds] = useState(0);
+
+    useEffect(() => {
+      const interval = setInterval(() => {
+        console.log("Tick");
+        setSeconds((s) => s + 1);
+      }, 1000);
+
+      // ❌ Oops! Forgot to clean up the interval!
+      // return () => clearInterval(interval);
+    }, []);
+
+    return <h1>Seconds: {seconds}</h1>;
+  }
+  ```
+
+  `setInterval` will not be automatically removed when a component unmounts.
+  If you don’t manually call `clearInterval()`, it keeps running even after the component is gone.
+
+  `setInterval` is a **browser API** — once you call it, it runs on its own schedule until you:
+
+      a. Call clearInterval(id) Or
+      b. the page is refreshed
+
+  React has no built-in way to stop it for you. So when a component using `setInterval` is unmounted, the interval continues in the background unless you clean it up in useEffect's return.
+
+  In `StrictMode`, React will:
+
+  1. Mount the component
+  2. Unmount it immediately
+  3. Re-mount it again
+
+  If you forget to clearInterval, the first one sticks around.
+  Then the second one starts.
+  You now have multiple intervals running at once — a bug.
+  This is how StrictMode helps you spot and fix these issues early.
 
 ## Pro Tips
 
