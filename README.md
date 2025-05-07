@@ -46,6 +46,45 @@ This project focuses on building a Netflix-like UI with the GPT integration.
 3. Create appStore with `configureStore` and add user reducer in it.
 4. Wrap the app component in `<Provider></Provider>` and then pass the appStore to Provider.
 
+## Setting Up TMDB API
+
+- First we have to create an account in TMDB and register our app
+- Once we register, we will get our Access Token.
+- We don't have to push the Access Token in Github. So create a `.env` file in project root and add the access token there -
+
+  ```js
+  VITE_TMDB_ACCESS_TOKEN = your_tmdb_bearer_token;
+  ```
+
+  We can use the ACCESS_TOKEN in our code with `import.meta.env.VITE_TMDB_ACCESS_TOKEN`.
+  Also, add `.env` file in `.gitignore`
+
+- **NOTE:** `import.meta.env.VITE_TMDB_ACCESS_TOKEN` is the Vite-specific way to access the keys from `.env` file. But, in NodeJS and Create React App, we will have to use `process.env.VITE_TMDB_ACCESS_TOKEN`
+- **NOTE:** When we add anything in `.env` file, we should start it with `VITE_` for Vite project. For Create React App, it should start with `REACT_APP_`
+
+## Setting Up OpenAI API
+
+- Login to OpenAI and create an API Key (Check for payment details)
+- Add the API Key in `.env` file under the variable - `VITE_OPENAI_API_KEY`
+- Install open ai dependency - `npm install openai`
+- Create an `openai.js` file and add -
+
+  ```js
+  import OpenAI from "openai";
+
+  const openAIClient = new OpenAI({
+    apiKey: import.meta.env.VITE_OPENAI_API_KEY, // This is the default and can be omitted
+  });
+
+  export default openAIClient;
+  ```
+
+- With the above configuration, if we try to call an API, it will throw an error, which will mention the security risk of calling api from browser. Since we have API key in the front-end part, it can be leaked easily. So OpenAI doesn't allow this by default. However, we can override this by adding below entry in `openai.js` file -
+  ```js
+  dangerouslyAllowBrowser: true;
+  ```
+  Please note that most secured way of handling API key is to move these API calls to the backend, so that our API Keys will not be leaked from the front-end part.
+
 ## Important Points Regarding Path in Vite
 
 - Resources in `public` folder can be directly accessed inside the project -
@@ -73,7 +112,9 @@ This project focuses on building a Netflix-like UI with the GPT integration.
 1. Sign In/Sign Up Page
 2. Form Validation with `useRef`
 3. Authentication with firebase & deployment in firebase
-4. TMDB APIs to get movie details
+4. Main page to display movies of different categories
+5. TMDB APIs to get movie details
+6. Open AI integration to suggest movies.
 
 ## `useRef` vs `useState`
 
